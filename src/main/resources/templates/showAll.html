@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +12,12 @@
           <div class="col-md-4">
               <h1>USERS</h1>
               <ul>
-                  <li th:each="user:${us}">
+                <li th:each="user : ${us}"
+                    th:style="'width:' + ${user.width} + 'px; height:' + ${user.height} + 'px; border: 5px solid ' +${user.colour}+';'">
                       <span th:text="${user.name}"></span> <br>
-                      <span th:text="${user.password}"></span>
-                      <div th:switch="${user.name}">
-                          <span th:case="'William'">HEY! It's the instructor!!!</span>
-                          <span th:case="'irish'">Uh oh! It's Irish!</span>
-                          <span th:case="*">General user</span>
-                      </div>
+
+                      <span th:text="${user.width}"></span> <br>
+                      <span th:text="${user.height}"></span>
                   </li>
               </ul>
           </div>

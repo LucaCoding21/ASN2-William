@@ -13,16 +13,42 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int uId;
   private String name;
-  private String password;
-  private int size;
+  private String colour;
+  private int width;
+  private int height;
 
   public User() {
   }
 
-  public User(String name, String password, int size) {
+  public User(String name, String colour, int width, int height) {
     this.name = name;
-    this.password = password;
-    this.size = size;
+    this.colour = colour;
+    this.width = width;
+    this.height = height;
+  }
+
+  public String getColour() {
+    return colour;
+  }
+
+  public void setColour(String colour) {
+    this.colour = colour;
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public void setWidth(int width) {
+    this.width = width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public void setHeight(int height) {
+    this.height = height;
   }
 
   public String getName() {
@@ -33,22 +59,6 @@ public class User {
     this.name = name;
   }
 
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public int getSize() {
-    return size;
-  }
-
-  public void setSize(int size) {
-    this.size = size;
-  }
-
   public int getuId() {
     return uId;
   }
@@ -56,5 +66,4 @@ public class User {
   public void setuId(int uId) {
     this.uId = uId;
   }
-
 }

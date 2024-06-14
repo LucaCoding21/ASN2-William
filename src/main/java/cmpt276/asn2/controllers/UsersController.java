@@ -25,15 +25,7 @@ public class UsersController {
   @GetMapping("/users/view")
   public String getAllUsers(Model model) {
     System.out.println("Getting all users");
-    // get all users from database
-    /*
-     * List <User> users = new ArrayList<>();
-     * users.add(new User("Alice","123",25));
-     * users.add(new User("Bobby","456",6));
-     * users.add(new User("Charlie,","789",7));
-     * users.add(new User("David","101",8));
-     * users.add(new User("Steve","112",19));
-     */
+
     List<User> users = userRepo.findAll();
     // end of database call
     model.addAttribute("us", users);
@@ -54,9 +46,10 @@ public class UsersController {
   public String addUser(@RequestParam Map<String, String> newuser, HttpServletResponse response) {
     System.out.println("ADD user");
     String newName = newuser.get("name");
-    String newPwd = newuser.get("password");
-    int newSize = Integer.parseInt(newuser.get("size"));
-    userRepo.save(new User(newName, newPwd, newSize));
+    String newColour = newuser.get("colour");
+    int newWidth = Integer.parseInt(newuser.get("width"));
+    int newHeight = Integer.parseInt(newuser.get("height"));
+    userRepo.save(new User(newName, newColour, newWidth, newHeight));
     response.setStatus(201);
     return "addedUser";
   }
