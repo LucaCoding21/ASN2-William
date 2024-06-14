@@ -53,10 +53,9 @@ public class UsersController {
       user.setName(newName);
       user.setWidth(newWidth);
       user.setHeight(newHeight);
-      userRepo.save(user); // Save updated user to database
+      userRepo.save(user);
     } else {
-      // Handle case where user with given ID is not found
-      // You may redirect to an error page or handle as appropriate
+
     }
 
     return "redirect:/users/view";
