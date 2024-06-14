@@ -13,15 +13,27 @@
               <h1>USERS</h1>
               <ul>
                 <li th:each="user : ${us}"
-                    th:style="'width:' + ${user.width} + 'px; height:' + ${user.height} + 'px; border: 5px solid ' +${user.colour}+';'">
+    th:style="'width:' + ${user.width} + 'px; height:' + ${user.height} + 'px; background-color:' + ${user.colour} + '; border: 5px solid ' + ${user.colour} + ';'"
+    class="list-group-item">
                       <span th:text="${user.name}"></span> <br>
-
-                      <span th:text="${user.width}"></span> <br>
-                      <span th:text="${user.height}"></span>
                   </li>
               </ul>
           </div>
       </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Color</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="user : ${us}">
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.colour}"></td>
+          </tr>
+        </tbody>
+      </table>
   </main>
 </body>
 </html>
