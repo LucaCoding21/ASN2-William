@@ -10,7 +10,9 @@
   <main class="container-fluid">
       <div class="row justify-content-center">
           <div class="col-md-4">
-              <h1>USERS</h1>
+              <h1>Rectangles!
+              </h1>
+              <a href="/add.html"class="btn btn-primary">add users</a>
               <ul>
                 <li th:each="user : ${us}"
     th:style="'width:' + ${user.width} + 'px; height:' + ${user.height} + 'px; background-color:' + ${user.colour} + '; border: 5px solid ' + ${user.colour} + ';'"
@@ -25,12 +27,20 @@
           <tr>
             <th>Name</th>
             <th>Color</th>
+            <th></th>
+            <th>ID</th>
           </tr>
         </thead>
         <tbody>
           <tr th:each="user : ${us}">
-            <td th:text="${user.name}"></td>
+            <td>
+              <a th:href="@{/users/detail/{uId}(uId=${user.uId})}" th:text="${user.name}"></a> <br>
+            </td>
             <td th:text="${user.colour}"></td>
+            <form th:action="@{/users/delete/{uId}(uId=${user.uId})}" method="post">
+            <td><button type="submit" class="btn btn-danger">Delete</button></td>
+            <td th:text="${user.uId}"></td>
+
           </tr>
         </tbody>
       </table>

@@ -2,10 +2,12 @@ package cmpt276.asn2.controllers;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,13 +34,44 @@ public class UsersController {
     return "showAll";
   }
 
-  @GetMapping("/users/view/{uid}")
-  public String getUser(Model model, @PathVariable String uid) {
+  @PostMapping("/users/delete/{uId}")
+  public String deleteUser(@PathVariable int uId) {
 
-    System.out.println("GET User " + uid);
-    // call db
+    userRepo.deleteById(uId);
+    return "redirect:/users/view";
+  }
 
-    return "showUser";
+  @PostMapping("/users/update/{uId}")
+  public String updateUser(@PathVariable int uId, @RequestParam Map<String, String> updatedUser) {
+    String newName = updatedUser.get("name");
+    int newWidth = Integer.parseInt(updatedUser.get("width"));
+    int newHeight = Integer.parseInt(updatedUser.get("height"));
+
+    Optional<User> userOptional = userRepo.findById(uId);
+    if (userOptional.isPresent()) {
+      User user = userOptional.get();
+      user.setName(newName);
+      user.setWidth(newWidth);
+      user.setHeight(newHeight);
+      userRepo.save(user); // Save updated user to database
+    } else {
+      // Handle case where user with given ID is not found
+      // You may redirect to an error page or handle as appropriate
+    }
+
+    return "redirect:/users/view";
+  }
+
+  @GetMapping("/users/detail/{uId}")
+  public String showUserDetail(@PathVariable int uId, Model model) {
+
+    Optional<User> user = userRepo.findById(uId);
+    if (user.isPresent()) {
+      model.addAttribute("user", user.get());
+      return "detail";
+    } else {
+      return "redirect:/users/view";
+    }
   }
 
   // data coming from form would be a PostMapping
@@ -51,7 +84,7 @@ public class UsersController {
     int newHeight = Integer.parseInt(newuser.get("height"));
     userRepo.save(new User(newName, newColour, newWidth, newHeight));
     response.setStatus(201);
-    return "addedUser";
+    return "redirect:/users/view";
   }
 
 }
